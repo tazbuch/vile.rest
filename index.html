@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vile.rest</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #8b0e0e, #3d3d5c);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: url('media/pfp.png') no-repeat center center/cover;
+            margin-bottom: 20px;
+            border: 3px solid #00d1ff;
+        }
+        header {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        .links {
+            margin-top: 20px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #00d1ff;
+            background: #121212;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .links a:hover {
+            background: #00d1ff;
+            color: #121212;
+        }
+        .mute-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #121212;
+            color: #8b0e0e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+        .mute-button:hover {
+            background: #00d1ff;
+            color: #121212;
+        }
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-pic"></div>
+    <header>tazbuch😎</header>
+    <p>i'm tazbuch, i like to make game website ("unblocked" games) and i just do random stuff.</p>
+    <div class="links">
+        <a href="https://github.com/tazbuch" target="_blank">github</a>
+        <a href="https://www.youtube.com/@tazbuchy" target="_blank">youtube</a>
+        <a href="https://discord.com/users/936385991017644052" target="_blank">discord</a>
+        <a href="https://idontpaymy.rent" target="_blank">game site</a>
+    </div>
+    <button class="mute-button" onclick="toggleAudio()">Mute</button>
+    <footer>&copy; cardashi</footer>
+    
+    <audio id="background-audio" autoplay loop>
+        <source src="media/audio.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const audio = document.getElementById('background-audio');
+        let isMuted = false;
+
+        function toggleAudio() {
+            if (isMuted) {
+                audio.play();
+                isMuted = false;
+                document.querySelector('.mute-button').textContent = 'Mute';
+            } else {
+                audio.pause();
+                isMuted = true;
+                document.querySelector('.mute-button').textContent = 'Unmute';
+            }
+        }
+    </script>
+</body>
+</html>
