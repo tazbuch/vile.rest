@@ -88,7 +88,7 @@
     <button class="mute-button" onclick="toggleAudio()">Mute</button>
     <footer>&copy; cardashi</footer>
     
-    <audio id="background-audio" autoplay loop>
+    <audio id="background-audio" loop>
         <source src="media/audio.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
@@ -96,6 +96,13 @@
     <script>
         const audio = document.getElementById('background-audio');
         let isMuted = false;
+
+        // Ensure autoplay after page load
+        window.addEventListener('load', () => {
+            audio.play().catch(() => {
+                console.log("Autoplay blocked by the browser, waiting for user interaction...");
+            });
+        });
 
         function toggleAudio() {
             if (isMuted) {
