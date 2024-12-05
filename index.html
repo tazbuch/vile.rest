@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vile.rest</title>
+    <link rel="icon" href="media/vile.png" type="image/png">
     <style>
         body {
             margin: 0;
@@ -29,44 +30,50 @@
         header {
             font-size: 2.5rem;
             font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 0 black, -2px 2px 0 black, 2px -2px 0 black, -2px -2px 0 black;
             margin-bottom: 10px;
         }
         p {
             font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 0 black, -2px 2px 0 black, 2px -2px 0 black, -2px -2px 0 black;
             margin: 10px 0;
         }
         .links {
             margin-top: 20px;
+            display: flex;
+            gap: 20px;
         }
         .links a {
-            text-decoration: none;
-            color: #00d1ff;
-            background: #121212;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin: 0 10px;
-            transition: background 0.3s, color 0.3s;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
         }
-        .links a:hover {
-            background: #00d1ff;
-            color: #121212;
+        .links img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .links img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #00d1ff;
         }
         .mute-button {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: #121212;
-            color: #8b0e0e;
+            background: none;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s, color 0.3s;
+            width: 50px;
+            height: 50px;
         }
-        .mute-button:hover {
-            background: #00d1ff;
-            color: #121212;
+        .mute-button img {
+            width: 100%;
+            height: 100%;
         }
         footer {
             position: absolute;
@@ -78,43 +85,212 @@
 <body>
     <div class="profile-pic"></div>
     <header>tazbuch😎</header>
-    <p>i'm tazbuch, i like to make game website ("unblocked" games) and i just do random stuff.</p>
+    <p>i'm tazbuch, i like to make game website ("unblocked" games) and i just do random stuff. and i like music cool cool 🗣🗣</p>
     <div class="links">
-        <a href="https://github.com/tazbuch" target="_blank">github</a>
-        <a href="https://www.youtube.com/@tazbuchy" target="_blank">youtube</a>
-        <a href="https://discord.com/users/936385991017644052" target="_blank">discord</a>
-        <a href="https://idontpaymy.rent" target="_blank">game site</a>
+        <a href="https://github.com/tazbuch" target="_blank">
+            <img src="media/ghico.png" alt="GitHub Icon">
+        </a>
+        <a href="https://www.youtube.com/@tazbuchy" target="_blank">
+            <img src="media/ytico.png" alt="YouTube Icon">
+        </a>
+        <a href="https://discord.com/users/936385991017644052" target="_blank">
+            <img src="media/dcico.png" alt="Discord Icon">
+        </a>
+        <a href="https://idontpaymy.rent" target="_blank">
+            <img src="media/siteicon.png" alt="Game Site Icon">
+        </a>
+        <a href="https://tiktok.com/@tazbuch" target="_blank">
+            <img src="media/ttico.png" alt="main tiktok">
+        </a>
+        <a href="https://tiktok.com/@tazbuch.vr" target="_blank">
+            <img src="media/ttico.png" alt="vr tiktok">
+        </a>
     </div>
-    <button class="mute-button" onclick="toggleAudio()">Mute</button>
+    <button class="mute-button" onclick="toggleAudio()">
+        <img id="mute-icon" src="media/mute-icon.png" alt="Mute Button">
+    </button>
     <footer>&copy; cardashi</footer>
     
-    <audio id="background-audio" loop>
+    <audio id="background-audio" autoplay loop muted>
         <source src="media/audio.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
     <script>
         const audio = document.getElementById('background-audio');
-        let isMuted = false;
-
-        // Ensure autoplay after page load
-        window.addEventListener('load', () => {
-            audio.play().catch(() => {
-                console.log("Autoplay blocked by the browser, waiting for user interaction...");
-            });
-        });
+        const muteButton = document.getElementById('mute-icon');
+        let isMuted = true;
 
         function toggleAudio() {
             if (isMuted) {
+                audio.muted = false;
                 audio.play();
                 isMuted = false;
-                document.querySelector('.mute-button').textContent = 'Mute';
+                muteButton.src = 'media/unmuted-icon.png';
             } else {
-                audio.pause();
+                audio.muted = true;
                 isMuted = true;
-                document.querySelector('.mute-button').textContent = 'Unmute';
+                muteButton.src = 'media/mute-icon.png';
             }
         }
+
+        window.onload = () => {
+            audio.muted = true;
+            audio.play().catch(() => console.log('Muted autoplay initialized.'));
+        };
     </script>
+        <script>
+            (function oneko(){
+                const isReducedMotion = window.matchMedia(`(prefers-reduced-motion: reduce)`).matches;
+                if (isReducedMotion) return;
+                const nekoEl = document.createElement("div");
+                let nekoPosX = window.innerWidth / 2;
+                let nekoPosY = window.innerHeight / 2;
+                let mousePosX = 0;
+                let mousePosY = 0;
+                let frameCount = 0;
+                let idleTime = 0;
+                let idleAnimation = null;
+                let idleAnimationFrame = 0;
+                const nekoSpeed = 10;
+                const spriteSets = {
+                    idle: [[-3, -3]],
+                    alert: [[-7, -3]],
+                    scratchSelf: [[-5, 0], [-6, 0], [-7, 0]],
+                    scratchWallN: [[0, 0], [0, -1]],
+                    scratchWallS: [[-7, -1], [-6, -2]],
+                    scratchWallE: [[-2, -2], [-2, -3]],
+                    scratchWallW: [[-4, 0], [-4, -1]],
+                    tired: [[-3, -2]],
+                    sleeping: [[-2, 0], [-2, -1]],
+                    N: [[-1, -2], [-1, -3]],
+                    NE: [[0, -2], [0, -3]],
+                    E: [[-3, 0], [-3, -1]],
+                    SE: [[-5, -1], [-5, -2]],
+                    S: [[-6, -3], [-7, -2]],
+                    SW: [[-5, -3], [-6, -1]],
+                    W: [[-4, -2], [-4, -3]],
+                    NW: [[-1, 0], [-1, -1]],
+                };
+                function init() {
+                    nekoEl.id = "oneko";
+                    nekoEl.ariaHidden = true;
+                    nekoEl.style.width = "32px";
+                    nekoEl.style.height = "32px";
+                    nekoEl.style.position = "fixed";
+                    nekoEl.style.pointerEvents = "none";
+                    nekoEl.style.imageRendering = "pixelated";
+                    nekoEl.style.left = `${nekoPosX - 16}px`;
+                    nekoEl.style.top = `${nekoPosY - 16}px`;
+                    nekoEl.style.zIndex = Number.MAX_VALUE;
+                    let nekoFile = "media/oneko.gif";
+                    nekoEl.style.backgroundImage = `url(${nekoFile})`;
+                    document.body.appendChild(nekoEl);
+                    document.addEventListener("mousemove", function(event) {
+                        mousePosX = event.clientX;
+                        mousePosY = event.clientY;
+                    });
+                    window.requestAnimationFrame(onAnimationFrame);
+                }
+                let lastFrameTimestamp;
+                function onAnimationFrame(timestamp) {
+                    if (!nekoEl.isConnected) {
+                        return;
+                    }
+                    if (!lastFrameTimestamp) {
+                        lastFrameTimestamp = timestamp;
+                    }
+                    if (timestamp - lastFrameTimestamp > 100) {
+                        lastFrameTimestamp = timestamp;
+                        frame();
+                    }
+                    window.requestAnimationFrame(onAnimationFrame);
+                }
+                function setSprite(name, frame) {
+                    const sprite = spriteSets[name][frame % spriteSets[name].length];
+                    nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+                }
+                function resetIdleAnimation() {
+                    idleAnimation = null;
+                    idleAnimationFrame = 0;
+                }
+                function idle() {
+                    idleTime += 1;
+                    if (idleTime > 10 && Math.floor(Math.random() * 200) == 0 && idleAnimation == null) {
+                        let avalibleIdleAnimations = ["sleeping", "scratchSelf"];
+                        if (nekoPosX < 32) {
+                            avalibleIdleAnimations.push("scratchWallW");
+                        }
+                        if (nekoPosY < 32) {
+                            avalibleIdleAnimations.push("scratchWallN");
+                        }
+                        if (nekoPosX > window.innerWidth - 32) {
+                            avalibleIdleAnimations.push("scratchWallE");
+                        }
+                        if (nekoPosY > window.innerHeight - 32) {
+                            avalibleIdleAnimations.push("scratchWallS");
+                        }
+                        idleAnimation = avalibleIdleAnimations[Math.floor(Math.random() * avalibleIdleAnimations.length)];
+                    }
+                    switch (idleAnimation) {
+                        case "sleeping":
+                            if (idleAnimationFrame < 8) {
+                                setSprite("tired", 0);
+                                break;
+                            }
+                            setSprite("sleeping", Math.floor(idleAnimationFrame / 4));
+                            if (idleAnimationFrame > 192) {
+                                resetIdleAnimation();
+                            }
+                            break;
+                        case "scratchWallN":
+                        case "scratchWallS":
+                        case "scratchWallE":
+                        case "scratchWallW":
+                        case "scratchSelf":
+                            setSprite(idleAnimation, idleAnimationFrame);
+                            if (idleAnimationFrame > 9) {
+                                resetIdleAnimation();
+                            }
+                            break;
+                        default:
+                            setSprite("idle", 0);
+                            return;
+                    }
+                    idleAnimationFrame += 1;
+                }
+                function frame() {
+                    frameCount += 1;
+                    const diffX = nekoPosX - mousePosX;
+                    const diffY = nekoPosY - mousePosY;
+                    const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+                    if (distance < nekoSpeed || distance < 48) {
+                        idle();
+                        return;
+                    }
+                    idleAnimation = null;
+                    idleAnimationFrame = 0;
+                    if (idleTime > 1) {
+                        setSprite("alert", 0);
+                        idleTime = Math.min(idleTime, 7);
+                        idleTime -= 1;
+                        return;
+                    }
+                    let direction;
+                    direction = diffY / distance > 0.5 ? "N" : "";
+                    direction += diffY / distance < -0.5 ? "S" : "";
+                    direction += diffX / distance > 0.5 ? "W" : "";
+                    direction += diffX / distance < -0.5 ? "E" : "";
+                    setSprite(direction, frameCount);
+                    nekoPosX -= (diffX / distance) * nekoSpeed;
+                    nekoPosY -= (diffY / distance) * nekoSpeed;
+                    nekoPosX = Math.min(Math.max(16, nekoPosX), window.innerWidth - 16);
+                    nekoPosY = Math.min(Math.max(16, nekoPosY), window.innerHeight - 16);
+                    nekoEl.style.left = `${nekoPosX - 16}px`;
+                    nekoEl.style.top = `${nekoPosY - 16}px`;
+                }
+                init();
+            })();
+        </script>
 </body>
 </html>
